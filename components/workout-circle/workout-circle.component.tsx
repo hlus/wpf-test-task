@@ -35,24 +35,27 @@ export const WorkoutCircle: React.FC<Props> = ({
     <TouchableOpacity
       onLongPress={isEditing ? onDrag : onStartEditMode}
       onPress={handleSelect}
-      className={`relative mr-4 h-16 w-16 items-center justify-center rounded-full bg-white
-              ${isSelected ? 'border-2 border-yellow-400' : ''}`}>
-      <Image source={{ uri: exercise.asset_url }} className="h-12 w-12 rounded-full border-2 border-gray-200" resizeMode="contain" />
-      {isEditing && (
-        <TouchableOpacity onPress={handleDelete} className="absolute -right-0.5 -top-0.5 h-5 w-5 items-center justify-center rounded-full bg-red-700">
-          <View className="h-0.5 w-2 rounded-full bg-white" />
-        </TouchableOpacity>
-      )}
-      {isCompleted && !isSelected && (
-        <View className="absolute bottom-0 right-0 rounded-full border-2 border-white bg-yellow-400">
-          <CheckedIcon />
-        </View>
-      )}
-      {isSelected && (
-        <View className="absolute bottom-0 right-0 h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-yellow-400">
-          <PlayIcon />
-        </View>
-      )}
+      className={`relative mr-4 h-[73px] w-[73px] items-center justify-center rounded-full bg-white ${isSelected ? 'border-2 border-yellow-400' : ''}`}>
+      <View className="rounded-full border-2 border-gray-200">
+        <Image source={{ uri: exercise.asset_url }} className="h-[64px] w-[64px] rounded-full" resizeMode="contain" />
+        {isEditing && (
+          <TouchableOpacity
+            onPress={handleDelete}
+            className="absolute -right-0.5 -top-0.5 h-5 w-5 items-center justify-center rounded-full bg-red-700">
+            <View className="h-0.5 w-2 rounded-full bg-white" />
+          </TouchableOpacity>
+        )}
+        {isCompleted && !isSelected && (
+          <View className="absolute bottom-0 right-0 h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-yellow-400">
+            <CheckedIcon />
+          </View>
+        )}
+        {isSelected && (
+          <View className="absolute bottom-0 right-0 h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-yellow-400">
+            <PlayIcon />
+          </View>
+        )}
+      </View>
     </TouchableOpacity>
   );
 };

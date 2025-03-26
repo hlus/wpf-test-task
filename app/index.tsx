@@ -47,7 +47,7 @@ const WorkoutPlanner = () => {
         horizontal
         data={exercises}
         showsHorizontalScrollIndicator={false}
-        className="flex-grow-0 px-2 py-2"
+        className="flex-grow-0 px-4 py-4"
         renderItem={renderExerciseCircle}
         keyExtractor={keyExtractor}
         onDragEnd={handleDragEnd}

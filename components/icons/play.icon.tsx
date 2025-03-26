@@ -2,7 +2,7 @@ import * as React from 'react';
 import Svg, { SvgProps, Path } from 'react-native-svg';
 
 export const PlayIcon: React.FC<SvgProps> = (props) => (
-  <Svg width={10} height={10} transform={[{ scale: 0.7 }]} fill="none" {...props}>
+  <Svg width={10} height={10} transform={[{ scale: 0.8 }]} fill="none" {...props}>
     <Path
       fill="#0F172A"
       fillRule="evenodd"
