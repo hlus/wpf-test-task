@@ -1,13 +1,23 @@
 import { ScrollView, SafeAreaView } from 'react-native';
 
-import { useWorkoutPlanner } from './use-workout-planner.hook';
+import { useWorkoutPlanner } from '../hooks/use-workout-planner.hook';
 
+import { EditMenu } from '@/components/edit-menu/edit-menu.component';
 import { WorkoutCard } from '@/components/workout-card/workout-card.component';
 import { WorkoutCircle } from '@/components/workout-circle/workout-circle.component';
 import { Exercise } from '@/models/exercise.dto';
 
 const WorkoutPlanner = () => {
-  const { exercises, selectedExercise, onSelectExercise, markAsCompleted } = useWorkoutPlanner();
+  const {
+    exercises,
+    selectedExercise,
+    onSelectExercise,
+    markAsCompleted,
+    isEditing,
+    startEditMode,
+    disableEditing,
+    deleteExercise,
+  } = useWorkoutPlanner();
 
   const renderExerciseCircle = (exercise: Exercise) => (
     <WorkoutCircle
@@ -15,13 +25,19 @@ const WorkoutPlanner = () => {
       exercise={exercise}
       isCompleted={exercise.completed}
       isSelected={selectedExercise?.id === exercise.id}
+      isEditing={isEditing}
       onSelect={onSelectExercise}
+      onStartEditMode={startEditMode}
+      onDelete={deleteExercise}
     />
   );
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-grow-0">
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        className="flex-grow-0 px-2 py-2">
         {exercises.map(renderExerciseCircle)}
       </ScrollView>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -29,6 +45,7 @@ const WorkoutPlanner = () => {
           <WorkoutCard exercise={selectedExercise} onReplace={markAsCompleted} />
         )}
       </ScrollView>
+      {isEditing && <EditMenu onDiscard={disableEditing} onSave={disableEditing} />}
     </SafeAreaView>
   );
 };
