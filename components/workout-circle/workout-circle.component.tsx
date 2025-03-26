@@ -8,13 +8,11 @@ interface Props {
   isCompleted?: boolean;
   exercise: Exercise;
 
-  onSelect?: (id: number) => void;
+  onSelect: (exercise: Exercise) => void;
 }
 
 export const WorkoutCircle: React.FC<Props> = ({ isSelected, isCompleted, exercise, onSelect }) => {
-  const handleSelect = () => {
-    onSelect?.(exercise.id);
-  };
+  const handleSelect = () => onSelect(exercise);
 
   return (
     <TouchableOpacity
