@@ -15,7 +15,8 @@ const WorkoutPlanner = () => {
     markAsCompleted,
     isEditing,
     startEditMode,
-    disableEditing,
+    discardEditing,
+    saveEditing,
     deleteExercise,
   } = useWorkoutPlanner();
 
@@ -45,7 +46,7 @@ const WorkoutPlanner = () => {
           <WorkoutCard exercise={selectedExercise} onReplace={markAsCompleted} />
         )}
       </ScrollView>
-      {isEditing && <EditMenu onDiscard={disableEditing} onSave={disableEditing} />}
+      {isEditing && <EditMenu onDiscard={discardEditing} onSave={saveEditing} />}
     </SafeAreaView>
   );
 };

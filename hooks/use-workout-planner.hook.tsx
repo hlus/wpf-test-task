@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import ExercisesMock from '@/mock/exercises-response.json';
 import { Exercise } from '@/models/exercise.dto';
 
 export const useWorkoutPlanner = () => {
+  const copyBeforeEditing = useRef<Exercise[]>(ExercisesMock.exercises);
+
   const [exercises, setExercises] = useState<Exercise[]>(ExercisesMock.exercises);
   const [isEditing, setIsEditing] = useState(false);
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
@@ -16,9 +18,20 @@ export const useWorkoutPlanner = () => {
     setCompletedExercises([...completedExercises, id]);
   };
 
-  const startEditMode = () => setIsEditing(true);
+  const startEditMode = () => {
+    copyBeforeEditing.current = exercises;
+    setIsEditing(true);
+  };
 
-  const disableEditing = () => setIsEditing(false);
+  const discardEditing = () => {
+    setExercises(copyBeforeEditing.current);
+    setIsEditing(false);
+  };
+
+  const saveEditing = () => {
+    copyBeforeEditing.current = exercises;
+    setIsEditing(false);
+  };
 
   const deleteExercise = (id: number) => {
     setExercises(exercises.filter((exercise) => exercise.id !== id));
@@ -36,7 +49,8 @@ export const useWorkoutPlanner = () => {
     markAsCompleted,
     isEditing,
     startEditMode,
-    disableEditing,
+    discardEditing,
+    saveEditing,
     deleteExercise,
   };
 };
