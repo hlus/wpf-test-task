@@ -15,6 +15,7 @@ interface Props {
   onSelect: (exercise: Exercise) => void;
   onStartEditMode?: () => void;
   onDelete?: (id: number) => void;
+  onDrag?: () => void;
 }
 
 export const WorkoutCircle: React.FC<Props> = ({
@@ -25,25 +26,20 @@ export const WorkoutCircle: React.FC<Props> = ({
   onSelect,
   onStartEditMode,
   onDelete = () => null,
+  onDrag = () => null,
 }) => {
   const handleSelect = () => onSelect(exercise);
   const handleDelete = () => onDelete(exercise.id);
 
   return (
     <TouchableOpacity
-      onLongPress={isEditing ? undefined : onStartEditMode}
+      onLongPress={isEditing ? onDrag : onStartEditMode}
       onPress={handleSelect}
       className={`relative mr-4 h-16 w-16 items-center justify-center rounded-full bg-white
               ${isSelected ? 'border-2 border-yellow-400' : ''}`}>
-      <Image
-        source={{ uri: exercise.asset_url }}
-        className="h-12 w-12 rounded-full border-2 border-gray-200"
-        resizeMode="contain"
-      />
+      <Image source={{ uri: exercise.asset_url }} className="h-12 w-12 rounded-full border-2 border-gray-200" resizeMode="contain" />
       {isEditing && (
-        <TouchableOpacity
-          onPress={handleDelete}
-          className="absolute -right-0.5 -top-0.5 h-5 w-5 items-center justify-center rounded-full bg-red-700">
+        <TouchableOpacity onPress={handleDelete} className="absolute -right-0.5 -top-0.5 h-5 w-5 items-center justify-center rounded-full bg-red-700">
           <View className="h-0.5 w-2 rounded-full bg-white" />
         </TouchableOpacity>
       )}

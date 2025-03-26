@@ -1,4 +1,6 @@
+import React from 'react';
 import { ScrollView, SafeAreaView } from 'react-native';
+import DraggableFlatList, { DragEndParams, RenderItemParams } from 'react-native-draggable-flatlist';
 
 import { useWorkoutPlanner } from '../hooks/use-workout-planner.hook';
 
@@ -18,33 +20,40 @@ const WorkoutPlanner = () => {
     discardEditing,
     saveEditing,
     deleteExercise,
+    onOrderChange,
   } = useWorkoutPlanner();
 
-  const renderExerciseCircle = (exercise: Exercise) => (
+  const renderExerciseCircle = ({ item, drag }: RenderItemParams<Exercise>) => (
     <WorkoutCircle
-      key={exercise.id}
-      exercise={exercise}
-      isCompleted={exercise.completed}
-      isSelected={selectedExercise?.id === exercise.id}
+      key={item.id}
+      exercise={item}
+      isCompleted={item.completed}
+      isSelected={selectedExercise?.id === item.id}
       isEditing={isEditing}
       onSelect={onSelectExercise}
       onStartEditMode={startEditMode}
       onDelete={deleteExercise}
+      onDrag={drag}
     />
   );
 
+  const keyExtractor = React.useCallback((item: Exercise) => item.id.toString(), []);
+
+  const handleDragEnd = ({ data }: DragEndParams<Exercise>) => onOrderChange(data);
+
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
-      <ScrollView
+      <DraggableFlatList
         horizontal
+        data={exercises}
         showsHorizontalScrollIndicator={false}
-        className="flex-grow-0 px-2 py-2">
-        {exercises.map(renderExerciseCircle)}
-      </ScrollView>
+        className="flex-grow-0 px-2 py-2"
+        renderItem={renderExerciseCircle}
+        keyExtractor={keyExtractor}
+        onDragEnd={handleDragEnd}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {selectedExercise && (
-          <WorkoutCard exercise={selectedExercise} onReplace={markAsCompleted} />
-        )}
+        {selectedExercise && <WorkoutCard exercise={selectedExercise} onReplace={markAsCompleted} />}
       </ScrollView>
       {isEditing && <EditMenu onDiscard={discardEditing} onSave={saveEditing} />}
     </SafeAreaView>

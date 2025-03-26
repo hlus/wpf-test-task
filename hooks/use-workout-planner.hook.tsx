@@ -37,6 +37,8 @@ export const useWorkoutPlanner = () => {
     setExercises(exercises.filter((exercise) => exercise.id !== id));
   };
 
+  const onOrderChange = (newOrder: Exercise[]) => setExercises(newOrder);
+
   const exercisesWithCompleted = exercises.map((exercise) => ({
     ...exercise,
     completed: completedExercises.some((id) => id === exercise.id),
@@ -52,5 +54,6 @@ export const useWorkoutPlanner = () => {
     discardEditing,
     saveEditing,
     deleteExercise,
+    onOrderChange,
   };
 };
