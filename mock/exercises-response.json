@@ -1,0 +1,47 @@
+{
+  "workout_name": "Chris' Full Body 1",
+  "exercises": [
+    {
+      "id": 1,
+      "name": "Squat",
+      "asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/143513.png",
+      "gif_asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/143513.gif",
+      "equipment": "barbell"
+    },
+    {
+      "id": 2,
+      "name": "Inclined Bench Press",
+      "asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/031413.png",
+      "gif_asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/031413.gif",
+      "equipment": "barbell"
+    },
+    {
+      "id": 3,
+      "name": "Pull Ups",
+      "asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/142913.png",
+      "gif_asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/142913.gif",
+      "equipment": "bodyweight"
+    },
+    {
+      "id": 4,
+      "name": "Shoulder Press",
+      "asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/040513.png",
+      "gif_asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/040513.gif",
+      "equipment": "dumbbell"
+    },
+    {
+      "id": 5,
+      "name": "Curl Biceps",
+      "asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/016513.png",
+      "gif_asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/016513.gif",
+      "equipment": "cable"
+    },
+    {
+      "id": 6,
+      "name": "Extension Triceps",
+      "asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/020013.png",
+      "gif_asset_url": "https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/020013.gif",
+      "equipment": "cable"
+    }
+  ]
+}

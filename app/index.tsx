@@ -1,26 +1,29 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+
+import { WorkoutCircle } from '@/components/workout-circle/workout-circle.component';
+import ExercisesMock from '@/mock/exercises-response.json';
+import { Exercise } from '@/models/exercise.dto';
 
 const WorkoutPlanner = () => {
+  const exercises = ExercisesMock.exercises;
+  const [selectedExercise, setSelectedExercise] = useState<number | null>(null);
+
+  const onSelectExercise = (id: number) => setSelectedExercise(id);
+
+  const renderExerciseCircle = (exercise: Exercise) => (
+    <WorkoutCircle
+      key={exercise.id}
+      exercise={exercise}
+      isSelected={exercise.id === selectedExercise}
+      onSelect={onSelectExercise}
+    />
+  );
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-4">
-        {exercises.map((exercise, index) => (
-          <View
-            key={index}
-            className={`mr-4 h-16 w-16 items-center justify-center rounded-full bg-gray-100
-              ${exercise.isSelected ? 'border-2 border-yellow-400' : ''}`}>
-            <Image
-              source={{ uri: exercise.image }}
-              className="h-12 w-12 rounded-full"
-              resizeMode="contain"
-            />
-            {exercise.isCompleted && (
-              <View className="absolute bottom-0 right-0 rounded-full bg-green-500 p-1">
-                <Text className="text-xs text-white">✓</Text>
-              </View>
-            )}
-          </View>
-        ))}
+        {exercises.map(renderExerciseCircle)}
       </ScrollView>
 
       <View className="p-4">
@@ -64,36 +67,3 @@ const WorkoutPlanner = () => {
 };
 
 export default WorkoutPlanner;
-
-const exercises = [
-  {
-    image:
-      'https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/143513.png',
-    isCompleted: true,
-    isSelected: false,
-  },
-  {
-    image:
-      'https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/143513.png',
-    isCompleted: true,
-    isSelected: false,
-  },
-  {
-    image:
-      'https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/143513.png',
-    isCompleted: false,
-    isSelected: true,
-  },
-  {
-    image:
-      'https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/143513.png',
-    isCompleted: false,
-    isSelected: false,
-  },
-  {
-    image:
-      'https://jyfpzydnxyelsxofxcnz.supabase.co/storage/v1/object/public/exercise_gifs/1080/143513.png',
-    isCompleted: false,
-    isSelected: false,
-  },
-];
