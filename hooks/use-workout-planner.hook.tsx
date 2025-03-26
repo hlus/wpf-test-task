@@ -34,6 +34,10 @@ export const useWorkoutPlanner = () => {
   };
 
   const deleteExercise = (id: number) => {
+    if (selectedExercise?.id === id) {
+      setSelectedExercise(null);
+    }
+
     setExercises(exercises.filter((exercise) => exercise.id !== id));
   };
 
