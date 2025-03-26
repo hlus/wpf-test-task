@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { ScrollView, SafeAreaView } from 'react-native';
 import DraggableFlatList, { DragEndParams, RenderItemParams } from 'react-native-draggable-flatlist';
 
@@ -23,23 +23,26 @@ const WorkoutPlanner = () => {
     onOrderChange,
   } = useWorkoutPlanner();
 
-  const renderExerciseCircle = ({ item, drag }: RenderItemParams<Exercise>) => (
-    <WorkoutCircle
-      key={item.id}
-      exercise={item}
-      isCompleted={item.completed}
-      isSelected={selectedExercise?.id === item.id}
-      isEditing={isEditing}
-      onSelect={onSelectExercise}
-      onStartEditMode={startEditMode}
-      onDelete={deleteExercise}
-      onDrag={drag}
-    />
+  const renderExerciseCircle = useCallback(
+    ({ item, drag }: RenderItemParams<Exercise>) => (
+      <WorkoutCircle
+        exercise={item}
+        isCompleted={item.completed}
+        isSelected={selectedExercise?.id === item.id}
+        isEditing={isEditing}
+        onPlay={markAsCompleted}
+        onSelect={onSelectExercise}
+        onStartEditMode={startEditMode}
+        onDelete={deleteExercise}
+        onDrag={drag}
+      />
+    ),
+    [selectedExercise?.id, isEditing, onSelectExercise, startEditMode, deleteExercise]
   );
 
-  const keyExtractor = React.useCallback((item: Exercise) => item.id.toString(), []);
+  const keyExtractor = useCallback((item: Exercise) => item.id.toString(), []);
 
-  const handleDragEnd = ({ data }: DragEndParams<Exercise>) => onOrderChange(data);
+  const handleDragEnd = useCallback(({ data }: DragEndParams<Exercise>) => onOrderChange(data), [onOrderChange]);
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
@@ -52,9 +55,7 @@ const WorkoutPlanner = () => {
         keyExtractor={keyExtractor}
         onDragEnd={handleDragEnd}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {selectedExercise && <WorkoutCard exercise={selectedExercise} onReplace={markAsCompleted} />}
-      </ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>{selectedExercise && <WorkoutCard exercise={selectedExercise} />}</ScrollView>
       {isEditing && <EditMenu onDiscard={discardEditing} onSave={saveEditing} />}
     </SafeAreaView>
   );

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
 import ExercisesMock from '@/mock/exercises-response.json';
 import { Exercise } from '@/models/exercise.dto';
@@ -37,7 +37,9 @@ export const useWorkoutPlanner = () => {
     setExercises(exercises.filter((exercise) => exercise.id !== id));
   };
 
-  const onOrderChange = (newOrder: Exercise[]) => setExercises(newOrder);
+  const onOrderChange = useCallback((newOrder: Exercise[]) => {
+    setExercises(newOrder);
+  }, []);
 
   const exercisesWithCompleted = exercises.map((exercise) => ({
     ...exercise,
