@@ -1,32 +1,34 @@
-import { useState } from 'react';
 import { ScrollView, SafeAreaView } from 'react-native';
+
+import { useWorkoutPlanner } from './use-workout-planner.hook';
 
 import { WorkoutCard } from '@/components/workout-card/workout-card.component';
 import { WorkoutCircle } from '@/components/workout-circle/workout-circle.component';
-import ExercisesMock from '@/mock/exercises-response.json';
 import { Exercise } from '@/models/exercise.dto';
 
 const WorkoutPlanner = () => {
-  const exercises = ExercisesMock.exercises;
-  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
-
-  const onSelectExercise = (exercise: Exercise) => setSelectedExercise(exercise);
+  const { exercises, selectedExercise, onSelectExercise, markAsCompleted } = useWorkoutPlanner();
 
   const renderExerciseCircle = (exercise: Exercise) => (
     <WorkoutCircle
       key={exercise.id}
       exercise={exercise}
+      isCompleted={exercise.completed}
       isSelected={selectedExercise?.id === exercise.id}
       onSelect={onSelectExercise}
     />
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-4">
+    <SafeAreaView className="flex-1 bg-gray-50">
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-grow-0">
         {exercises.map(renderExerciseCircle)}
       </ScrollView>
-      {selectedExercise && <WorkoutCard exercise={selectedExercise} />}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {selectedExercise && (
+          <WorkoutCard exercise={selectedExercise} onReplace={markAsCompleted} />
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -4,4 +4,5 @@ export interface Exercise {
   asset_url: string;
   gif_asset_url: string;
   equipment: string;
+  completed?: boolean;
 }
