@@ -2,7 +2,7 @@ import React from 'react';
 import Svg, { SvgProps, Path } from 'react-native-svg';
 
 export const DocumentIcon: React.FC<SvgProps> = (props) => (
-  <Svg width={16} height={16} fill="none" {...props}>
+  <Svg width={16} height={16} transform={[{ scale: 0.9 }]} fill="none" {...props}>
     <Path
       stroke="#010101"
       strokeLinecap="round"

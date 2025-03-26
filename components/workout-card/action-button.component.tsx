@@ -7,10 +7,8 @@ interface Props {
 }
 
 export const ActionButton: FC<PropsWithChildren<Props>> = ({ text, onPress, children }) => (
-  <TouchableOpacity
-    onPress={onPress}
-    className="mx-1 flex-1 flex-row items-center justify-center rounded-full border border-gray-200 bg-white py-2">
+  <TouchableOpacity onPress={onPress} className="mx-1 flex-1 flex-row items-center justify-center rounded-full border border-gray-950 bg-white p-2">
     {children}
-    <Text className="ml-1 text-sm font-medium text-gray-700">{text}</Text>
+    <Text className="ml-1 text-sm font-medium text-gray-950">{text}</Text>
   </TouchableOpacity>
 );
